@@ -1,0 +1,627 @@
+tools:
+- class_name: verl.tools.router_tool.SelectTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: select_response
+      description: 'Select the best response from previously executed model calls
+        to provide as the final answer.
+
+
+        Workflow:
+
+        1. First, call one or more model tools (e.g., call_gpt_4o, call_deepseek_r1)
+        to generate responses
+
+        2. Compare and evaluate the quality of different model responses
+
+        3. Use this tool to select the most appropriate response as your final answer
+
+
+        Requirements:
+
+        - Only call this tool AFTER executing other model tools
+
+        - The model_call_name must match exactly with a previously called function
+        name
+
+        - Function names always start with ''call_''.
+
+
+        The selected response will be returned to the user as the definitive answer
+        to their question.'
+      parameters:
+        type: object
+        properties:
+          model_call_name:
+            type: string
+            description: Exact name of the previously called model function whose
+              response you want to select. Must start with 'call_' and match a function
+              that was already executed (e.g., 'call_gpt_4o', 'call_deepseek_r1').
+        required:
+        - model_call_name
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_5
+      description: "Call GPT-5 model. Latest flagship model with built-in reasoning\
+        \ capabilities and expert-level intelligence.\n\n        Capabilities: Advanced\
+        \ reasoning with invisible thinking, coding, math, general tasks, multimodal\
+        \ (text+image input), long context, enhanced tool calling\n        Quality:\
+        \ Premium tier with state-of-the-art performance\n        Cost: $1.25/M input\
+        \ tokens, $10.00/M output tokens (plus $0.125/M for cached input)\n      \
+        \  Context: 400K tokens\n        Max Output: 128K tokens (includes reasoning\
+        \ tokens)\n\n        Best for: Mission-critical applications, complex agentic\
+        \ workflows, and tasks requiring high level of accuracy and reasoning.\n\n\
+        \        Key Features:\n        - Built-in reasoning with 'minimal' reasoning\
+        \ mode\n        - Significant reduction in hallucinations\n        - Improved\
+        \ instruction following and reduced sycophancy\n        - Enhanced personality\
+        \ and steerability\n\n        Benchmark Performance:\n        - Scale MultiChallenge\
+        \ (instruction following): 69.6%\n        - MMLU-Pro: 87.3%   \n        -\
+        \ GPQA Diamond: 85.7%\n        - AIME 2025: 94.6%\n        - HealthBench Hard:\
+        \ 46.2%\n        - LMSYS Arena Elo: 1481"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_5_mini
+      description: "Call GPT-5 Mini model. Smaller, faster, and more cost-effective\
+        \ version of GPT-5 with strong performance.\n\n        Capabilities: Reasoning,\
+        \ coding, math, general tasks, multimodal (text+image input)\n        Quality:\
+        \ Mid-tier with excellent performance-to-cost ratio\n        Cost: $0.25/M\
+        \ input tokens, $2.00/M output tokens\n        Context: 400K tokens\n    \
+        \    Max Output: 128K tokens\n\n        Best for: High-volume applications,\
+        \ cost-sensitive workflows, general-purpose tasks where full GPT-5 capability\
+        \ isn't required, and applications needing good performance at lower cost.\n\
+        \n        Benchmark Performance:\n        - MMLU-Pro: 82.8%\n        - GPQA\
+        \ Diamond: 82.3%\n        - AIME 2025: 91.1%\n        - LMSYS Arena Elo: 1375"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_5_nano
+      description: "Call GPT-5 Nano model. Ultra-efficient and cost-effective GPT-5\
+        \ variant for high-volume applications.\n\n        Capabilities: Basic reasoning,\
+        \ coding, math, general tasks\n        Quality: Budget tier with optimized\
+        \ efficiency\n        Cost: $0.05/M input tokens, $0.40/M output tokens\n\
+        \        Context: 400K tokens\n        Max Output: 128K tokens\n\n       \
+        \ Best for: High-volume, low-latency applications, developer tools, and real-time\
+        \ interactions.\n\n        Benchmark Performance:\n        - GPQA Diamond:\
+        \ 71.2%\n        - AIME 2025: 85.2%\n        - SWE-bench Verified: 34.8%"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_4o
+      description: "Call GPT-4o (Omni) model. Advanced multimodal model with excellent\
+        \ reasoning and coding capabilities.\n        \n        Capabilities: Advanced\
+        \ reasoning, coding, math, general tasks, multimodal\n        Quality: Premium\
+        \ tier  \n        Cost: $2.50/M input tokens, $10.00/M output tokens\n   \
+        \     Context: 128K tokens\n        Max Output: 16,384 tokens\n        \n\
+        \        Best for: High-quality multimodal applications, general-purpose tasks\
+        \ requiring a blend of speed and intelligence, and interactive chat where\
+        \ it is not critical to have the absolute best performance in a specialized\
+        \ domain.\n        \n        Benchmark Performance:\n        - MMLU: 88.7%\n\
+        \        - GPQA Diamond: 79.1%\n        - SWE-bench Verified: 29.8%\n    \
+        \    - Arena-Hard v2: 61.9%\n        - LiveCodeBench v6: 35.8%\n        -\
+        \ LMSYS Arena Elo: 1391"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_4o_mini
+      description: "Call GPT-4o Mini model. Cost-effective model with a strong balance\
+        \ of performance, speed, and affordability.\n        \n        Capabilities:\
+        \ Reasoning, coding, math, general tasks\n        Quality: Budget tier with\
+        \ good performance\n        Cost: $0.15/M input tokens, $0.60/M output tokens\n\
+        \        Context: 128K tokens\n        Max Output: 16,384 tokens\n       \
+        \ \n        Best for: High-volume applications, cost-sensitive agentic workflows\
+        \ with tool-calling, and general-purpose tasks where premium quality is not\
+        \ required.\n        \n        Benchmark Performance:\n        - MMLU: 82.0%\n\
+        \        - MGSM (Math): 87.0%\n        - HumanEval (Coding): 87.2%\n     \
+        \   - MMMU (Multimodal): 59.4%\n        - SWE-bench Verified (Agentless):\
+        \ 26.0%\n        - LiveCodeBench v5: 38.4%"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_4_1
+      description: "Call GPT-4.1 model. Latest GPT-4 variant with a massive context\
+        \ window and state-of-the-art coding and instruction-following abilities.\n\
+        \        \n        Capabilities: Advanced reasoning, coding, math, general\
+        \ tasks, long context processing\n        Quality: Premium tier\n        Cost:\
+        \ $2.00/M input tokens, $8.00/M output tokens\n        Context: 1,047,576\
+        \ tokens (~1M tokens)\n        Max Output: 32,768 tokens\n        \n     \
+        \   Best for: Production developer workflows, agentic systems requiring high\
+        \ reliability, complex reasoning over large documents, and structured instruction-following.\n\
+        \        \n        Benchmark Performance:\n        - MMLU: 90.4%\n       \
+        \ - MMLU-Redux: 92.4%\n        - MMLU-Pro: 81.8%\n        - GPQA Diamond:\
+        \ 66.3%\n        - AIME 2024: 46.5%\n        - MATH-500: 92.4%\n        -\
+        \ SWE-bench Verified (Agentic): 54.6%\n        - SWE-bench Verified (Agentless):\
+        \ 40.8%\n        - LiveCodeBench v6: 44.7%\n        - Terminal-Bench (Terminus\
+        \ agent): 30.3%\n        - IFEval: 88.0%\n        - Tau-bench (Retail/Airline\
+        \ tool use): 74.8% / 54.5%\n        - LMSYS Arena Elo: 1408"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_4_1_mini
+      description: "Call GPT-4.1 Mini model. Balanced model with a large context window\
+        \ and an exceptional performance-to-cost ratio.\n        \n        Capabilities:\
+        \ Reasoning, coding, math, general tasks, long context processing\n      \
+        \  Quality: Budget tier\n        Cost: $0.40/M input tokens, $1.60/M output\
+        \ tokens\n        Context: 1,047,576 tokens (~1M tokens)\n        Max Output:\
+        \ 32,768 tokens\n        \n        Best for: Scalable applications requiring\
+        \ high-quality, long-context processing at a reduced cost, such as RAG systems\
+        \ and in-editor assistants.\n        \n        Benchmark Performance:\n  \
+        \      - MMLU: 87.5%\n        - GPQA Diamond: 65.0%\n        - AIME 2024:\
+        \ 49.6%\n        - SWE-bench Verified: 23.6%\n        - LiveBench (coding\
+        \ overall): 55.55\n        - IFEval: 84.1%\n        - Tau-bench (Airline/Retail\
+        \ tool use): 36.0% / 55.8%\n        - LMSYS Arena Elo: 1372"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_4_1_nano
+      description: "Call GPT-4.1 Nano model. Ultra-low cost model with a large context\
+        \ window, optimized for speed in high-volume tasks.\n        \n        Capabilities:\
+        \ Basic reasoning, coding, math, general tasks, long context processing\n\
+        \        Quality: Budget tier\n        Cost: $0.10/M input tokens, $1.40/M\
+        \ output tokens\n        Context: 1,047,576 tokens (~1M tokens)\n        Max\
+        \ Output: 32,768 tokens\n        \n        Best for: Ultra-efficient tasks\
+        \ like classification, summarization, or simple reasoning with massive context\
+        \ windows.\n        \n        Benchmark Performance:\n        - MMLU: 80.1%\n\
+        \        - GPQA Diamond: 50.3%\n        - Aider Polyglot (Code Editing): 9.8%\n\
+        \        - IFEval: 74.5%\n        - LiveCodeBench: 42.7%\n        - Tau-bench:\
+        \ 14.0%\u201322.6%"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_o3
+      description: "Call o3 model. Advanced reasoning model optimized for mathematical\
+        \ and scientific tasks, trained to \"think\" before answering.\n        \n\
+        \        Capabilities: Advanced reasoning, mathematics, scientific analysis\n\
+        \        Quality: Specialized for reasoning tasks\n        Cost: $2.00/M input\
+        \ tokens, $8.00/M output tokens, its reasoning tokens could be very long,\
+        \ so the cost could be very high\n        Context: 200K tokens\n        Max\
+        \ Output: 100,000 tokens\n        \n        Best for: Analytical applications\
+        \ requiring deep multi-step reasoning and STEM precision.\n        \n    \
+        \    Note: O-series models only support temperature=1.0 and do not support\
+        \ top_p.\n        Note: Thinking model requires high token limits (8192+)\
+        \ to account for internal reasoning.\n        \n        Benchmark Performance:\n\
+        \        - MMLU-Pro: 85.3%\n        - GPQA Diamond: 82.7%\n        - SWE-bench\
+        \ Verified: 71.7%\n        - Codeforces Elo: 2727\n        - LiveCodeBench\
+        \ v6: 78.4%\n        - Humanity's Last Exam (HLE): 20.0%\n        - AIME 2025:\
+        \ 67%\n        - LMSYS Arena Elo: 1452\n        - SimpleQA: 51%\n        -\
+        \ Terminal-Bench: 43.2%"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_o3_pro
+      description: "Call o3 Pro model. Premium reasoning model for the most challenging\
+        \ problems, using more compute to \"think harder\".\n        \n        Capabilities:\
+        \ Premium reasoning, advanced mathematics, scientific research\n        Quality:\
+        \ Top-tier specialized model\n        Cost: $20.00/M input tokens, $80.00/M\
+        \ output tokens, its reasoning tokens could be very long, so the cost could\
+        \ be very high\n        Context: 200K tokens\n        Max Output: 100,000\
+        \ tokens\n        \n        Best for: Mission-critical research, frontier\
+        \ scientific problems, and complex analytical tasks where achieving the highest\
+        \ accuracy is paramount.\n        \n        Note: O-series models only support\
+        \ temperature=1.0 and do not support top_p.\n        Note: Thinking model\
+        \ requires high token limits (8192+) to account for internal reasoning.\n\
+        \        \n        Benchmark Performance:\n        - AIME 2025: 68%\n    \
+        \    - GPQA Diamond: 84.5%\n        - Codeforces Elo: 2748\n        - Terminal-Bench:\
+        \ 43.2%"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_o4_mini
+      description: "Call o4 Mini model. High-performance reasoning model with an excellent\
+        \ performance-to-cost ratio.\n        \n        Capabilities: Reasoning, mathematics,\
+        \ scientific analysis\n        Quality: Standard tier for reasoning\n    \
+        \    Cost: $1.10/M input tokens, $4.40/M output tokens, its reasoning tokens\
+        \ could be very long, so the cost could be very high\n        Context: 200K\
+        \ tokens\n        Max Output: 100,000 tokens\n        \n        Best for:\
+        \ Cost-sensitive development, math/coding tasks, and visual reasoning.\n \
+        \       \n        Note: O-series models only support temperature=1.0 and do\
+        \ not support top_p.\n        Note: Thinking model requires high token limits\
+        \ (8192+) to account for internal reasoning.\n        \n        Benchmark\
+        \ Performance:\n        - MMLU-Pro: 83.2%\n        - GPQA Diamond: 78.4%\n\
+        \        - LiveCodeBench v6: 80.4%\n        - AIME 2025: 65%\n        - Humanity's\
+        \ Last Exam (HLE): 17.5%\n        - SWE-bench Verified: 68.1%\n        - Codeforces\
+        \ Elo: 2719\n        - LMSYS Arena Elo: 1400+\n        - SimpleQA: 20%"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_oss_120b
+      description: "Call GPT-OSS 120B model. Open-weight MoE model from OpenAI, designed\
+        \ for efficient on-premise deployment and strong reasoning.\n        \n  \
+        \      Capabilities: Reasoning, coding, mathematics, general tasks, chain-of-thought\n\
+        \        Quality: Standard tier.\n        Cost: $0.15/M input tokens, $0.60/M\
+        \ output tokens\n        Context: 131,072 tokens (128K)\n        Max Output:\
+        \ 131,072 tokens\n        \n        Best for: On-premise or private cloud\
+        \ deployments, especially in privacy-sensitive domains like healthcare, and\
+        \ for building cost-effective, open-weight agentic systems.\n        \n  \
+        \      Benchmark Performance:\n        - GPQA Diamond (no tools): 67.1%\n\
+        \        - MMLU: 85.9%\n        - HLE (no tools): 5.2%\n        - Codeforces\
+        \ Elo (with tools): 1595\n        - SWE-Bench Verified: 47.9%\n        - HealthBench:\
+        \ 53.0%"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_gpt_oss_20b
+      description: "Call GPT-OSS 20B model. Open-weight MoE model from OpenAI, designed\
+        \ for highly efficient on-premise deployment and strong reasoning.\n     \
+        \   \n        Capabilities: Reasoning, mathematics, general tasks, chain-of-thought\n\
+        \        Quality: Budget tier.\n        Cost: $0.05/M input tokens, $0.20/M\
+        \ output tokens\n        Context: 131,072 tokens (128K)\n        Max Output:\
+        \ 131,072 tokens\n\n        Best for: Cost-effective on-premise, particularly\
+        \ for applications needing a balance of performance and efficiency.\n    \
+        \    \n        Benchmark Performance:\n        - GPQA Diamond (no tools):\
+        \ 56.8%\n        - MMLU: 80.4%\n        - HLE (no tools): 4.2%\n        -\
+        \ Codeforces Elo (with tools): 1366\n        - SWE-Bench Verified: 37.4%\n\
+        \        - HealthBench: 40.0%"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_qwen3_235b_instruct
+      description: "Call Qwen3 235B Instruct model. Large-scale, open-weight MoE model\
+        \ with excellent multilingual capabilities and strong all-around performance.\n\
+        \        \n        Capabilities: Reasoning, coding, math, general tasks, multilingual\n\
+        \        Quality: Premium tier with excellent multilingual support\n     \
+        \   Cost: $0.20/M input tokens, $0.60/M output tokens\n        Context: 262,144\
+        \ tokens\n        Max Output: 262,144 tokens\n        \n        Best for:\
+        \ High-quality, cost-effective inference for multilingual applications and\
+        \ general-purpose tasks requiring strong instruction-following.\n        \n\
+        \        Benchmark Performance (Instruct-2507, Non-thinking):\n        - MMLU:\
+        \ 87.0%\n        - MMLU-Pro: 77.3%\n        - GPQA-Diamond: 62.9%\n      \
+        \  - AIME 2025: 24.7%\n        - MATH-500: 91.2%\n        - SWE-bench Verified\
+        \ (Agentless): 39.4%\n        - LiveCodeBench v6: 37.0%\n        - IFEval:\
+        \ 83.2%\n        - Tau2 (Retail/Airline): 57.0% / 26.5%\n        - LMSYS Arena\
+        \ Elo: 1430"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_qwen3_235b_thinking
+      description: "Call Qwen3 235B Thinking model. Specialized open-weight reasoning\
+        \ model with built-in, transparent chain-of-thought capabilities.\n      \
+        \  \n        Capabilities: Advanced reasoning, mathematics, analysis, chain-of-thought\n\
+        \        Quality: Specialized for reasoning with built-in CoT\n        Cost:\
+        \ $0.65/M input tokens, $3.00/M output tokens, its reasoning tokens could\
+        \ be very long, so the cost could be very high\n        Context: 262,144 tokens\n\
+        \        Max Output: 262,144 tokens\n        \n        Best for: Complex analytical\
+        \ problems, mathematical proofs, and logical analysis requiring transparent,\
+        \ step-by-step reasoning chains.\n        \n        Note: Thinking model requires\
+        \ high token limits (8192+) to account for internal reasoning.\n\n       \
+        \ Benchmark Performance (Thinking-2507 version):\n        - LiveCodeBench\
+        \ v6: 74.1%\n        - HMMT25 (Math): 83.9%\n        - SuperGPQA (Science):\
+        \ 64.9%\n        - AIME25 (Math): 92.3%\n        - HLE (no tools): 18.2%\n\
+        \        - LMSYS Arena Elo: 1399"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_qwen3_coder_480b
+      description: "Call Qwen3 Coder 480B model. Massive 480B parameter, open-weight\
+        \ MoE model hyper-specialized for coding.\n        \n        Capabilities:\
+        \ Advanced coding, debugging, code review, programming\n        Quality: Specialized\
+        \ coding model.\n        Cost: $2.00/M input tokens, $2.00/M output tokens\n\
+        \        Context: 262,144 tokens\n        Max Output: 262,144 tokens\n   \
+        \     \n        Best for: The most demanding, end-to-end software engineering\
+        \ tasks, including complex code generation, large-scale refactoring, and agentic\
+        \ development workflows.\n        \n        Benchmark Performance:\n     \
+        \   - SWE\u2011bench Verified: 67.0%\n        - SWE\u2011bench Multilingual:\
+        \ 54.7%\n        - Multi\u2011SWE\u2011bench mini: 25.8%\n        - Multi\u2011\
+        SWE\u2011bench flash: 27.0%\n        - Aider\u2011Polyglot: 61.8%\n      \
+        \  - Spider2: 31.1%\n        - Agentic Coding (Terminal\u2011Bench): 37.5\n\
+        \        - Agentic Browser Use (WebArena): 49.9%\n        - Agentic Browser\
+        \ Use (Mind2Web): 55.8%\n        - TAU\u2011Bench Retail: 77.5%\n        -\
+        \ TAU\u2011Bench Airline: 60.0%"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_kimi_k2
+      description: "Call Kimi K2 Instruct model. Advanced 1T parameter open-weight\
+        \ MoE model, uniquely trained for agentic workflows and tool use.\n      \
+        \  \n        Capabilities: Advanced reasoning, mathematics, analysis, multilingual,\
+        \ agentic coding\n        Quality: Premium tier with strong analytical and\
+        \ tool-use capabilities\n        Cost: $1.00/M input tokens, $3.00/M output\
+        \ tokens\n        Context: 131,072 tokens\n        Max Output: 131,072 tokens\n\
+        \        \n        Best for: Agentic coding workflows requiring interaction\
+        \ with external tools, complex analytical tasks, and multilingual applications.\n\
+        \        \n        Benchmark Performance:\n        - MMLU: 89.5%\n       \
+        \ - GPQA-Diamond: 75.1%\n        - MATH-500: 97.4%\n        - AIME 2025: 49.5%\n\
+        \        - SWE-bench Verified (Agentic): 65.8%\n        - SWE-bench Verified\
+        \ (Agentless): 51.8%\n        - LiveCodeBench v6: 53.7%\n        - TerminalBench\
+        \ (Inhouse): 30.0%\n        - Tau2 (Retail/Airline): 70.6% / 56.5%\n     \
+        \   - LMSYS Arena Elo: 1400+"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_deepseek_r1
+      description: "Call DeepSeek R1 model. Research-focused strong reasoning model.\n\
+        \n        Capabilities: Reasoning, mathematics, science, research\n      \
+        \  Quality: Premium tier with strong research capabilities\n        Cost:\
+        \ $3.00/M input tokens, $7.00/M output tokens\n        Context: 163,840 tokens\n\
+        \        Max Output: 131,072 tokens\n\n        Best for: Creative Writing,scientific\
+        \ reasoning and analytical problem solving.\n\n        Note: Thinking model\
+        \ requires high token limits (8192+) to account for internal reasoning.\n\
+        \        \n        Benchmark Performance:\n        - AIME 2024: 79.8%\n  \
+        \      - MATH-500: 97.3%\n        - HLE (no tools): 17.7%\n        - LiveCodeBench\
+        \ v6: 68.7%\n        - Codeforces percentile: 96.3%\n        - SuperGPQA:\
+        \ 61.82%\n        - Terminal-Bench: 52% (Warp agent), 30% (Terminus agent)\n\
+        \        - LMSYS Arena Elo: 1394"
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt
+- class_name: verl.tools.router_tool.RouterTool
+  config: {}
+  tool_schema:
+    type: function
+    function:
+      name: call_deepseek_r1_tput
+      description: "Call DeepSeek R1 Throughput model. High-throughput version of\
+        \ DeepSeek R1 with optimized cost.\n        \n        Capabilities: Reasoning,\
+        \ mathematics, science with optimized speed\n        Quality: Standard tier\
+        \ with better cost-performance\n        Cost: $0.55/M input tokens, $2.19/M\
+        \ output tokens\n        Context: 163,840 tokens\n        Max Output: 131,072\
+        \ tokens\n        \n        Best for: Scaling reasoning tasks that require\
+        \ good performance at a lower cost, particularly for mathematical problems\
+        \ where speed and cost are key factors.\n\n        Note: Thinking model requires\
+        \ high token limits (8192+) to account for internal reasoning.\n        \n\
+        \        Benchmark Performance:\n        - Performance metrics are not publicly\
+        \ available for this throughput-optimized variant of DeepSeek R1."
+      parameters:
+        type: object
+        properties:
+          optimized_system_prompt:
+            type: string
+            description: Optimized system prompt for this specific model and task
+          temperature:
+            type: number
+            description: Sampling temperature (0.0 to 2.0)
+            default: 1.0
+        required:
+        - optimized_system_prompt

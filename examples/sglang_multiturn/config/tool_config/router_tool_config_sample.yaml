@@ -1,0 +1,59 @@
+tools:
+  - class_name: "verl.tools.router_tool.GPTTool"
+    config:
+      model: "gpt-4o"
+    tool_schema:
+      type: "function"
+      function:
+        name: "route_to_gpt4o"
+        description: "Routes the input to GPT-4o for intelligent processing. Customize system prompt, user prompt, temperature, and other generation parameters."
+        parameters:
+          type: "object"
+          properties:
+            system_prompt:
+              type: "string"
+              description: "The system-level prompt that sets the behavior and personality of GPT-4o."
+            user_prompt:
+              type: "string"
+              description: "The actual input or question to pass to GPT-4o."
+            temperature:
+              type: "number"
+              description: "Sampling temperature, controlling randomness. Typical values range from 0.0 (deterministic) to 1.0 (creative)."
+          required: ["system_prompt", "user_prompt"]
+  
+  - class_name: "verl.tools.router_tool.GPTTool"
+    config:
+      model: "gpt-4o-mini"
+    tool_schema:
+      type: "function"
+      function:
+        name: "route_to_gpt4o-mini"
+        description: "Routes the input to GPT-4o-mini for intelligent processing. Customize system prompt, user prompt, temperature, and other generation parameters."
+        parameters:
+          type: "object"
+          properties:
+            system_prompt:
+              type: "string"
+              description: "The system-level prompt that sets the behavior and personality of GPT-4o-mini."
+            user_prompt:
+              type: "string"
+              description: "The actual input or question to pass to GPT-4o-mini."
+            temperature:
+              type: "number"
+              description: "Sampling temperature, controlling randomness. Typical values range from 0.0 (deterministic) to 1.0 (creative)."
+          required: ["system_prompt", "user_prompt"]
+  
+  - class_name: "verl.tools.router_tool.UserTool"
+    config: {}
+    tool_schema:
+      type: "function"
+      function:
+        name: "route_to_user"
+        description: "Routes the input to the user for clarification, confirmation, or human judgment."
+        parameters:
+          type: "object"
+          properties:
+            content:
+              type: "string"
+              description: "The message or query you want to present to the user."
+          required: ["content"]
