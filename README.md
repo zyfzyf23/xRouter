@@ -1,5 +1,9 @@
 # xRouter: Training Cost-Aware LLMs Orchestration System via Reinforcement Learning
 
+[![arXiv](https://img.shields.io/badge/arXiv-2510.08439-b31b1b.svg)](https://arxiv.org/abs/2510.08439)
+[![GitHub](https://img.shields.io/badge/GitHub-SalesforceAIResearch%2FxRouter-blue?logo=github)](https://github.com/SalesforceAIResearch/xRouter)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
+
 xRouter is an intelligent LLM routing system trained with reinforcement learning to dynamically select optimal models from 20+ available LLMs while optimizing for both performance and cost.
 
 <!-- ![Router Architecture](docs/_static/router_architecture.png) -->
@@ -358,6 +362,19 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 ## 📄 License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## 📚 Citation
+
+If you find xRouter useful for your research or applications, please cite our paper:
+
+```bibtex
+@article{qian2025xrouter,
+  title={xRouter: Training Cost-Aware LLMs Orchestration System via Reinforcement Learning},
+  author={Qian, Cheng and Liu, Zuxin and Kokane, Shirley and Prabhakar, Akshara and Qiu, Jielin and Chen, Haolin and Liu, Zhiwei and Ji, Heng and Yao, Weiran and Heinecke, Shelby and Savarese, Silvio and Xiong, Caiming and Wang, Huan},
+  journal={arXiv preprint arXiv:2510.08439},
+  year={2025}
+}
+```
 
 ## 🙏 Acknowledgements
 
