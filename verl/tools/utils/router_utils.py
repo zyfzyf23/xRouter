@@ -832,7 +832,8 @@ MODEL_SPECS = {
     
 
 class LLMRouter:
-    """Unified router system for managing multiple LLM models"""
+    """用于管理多个LLM模型的统一路由器系统
+    Unified router system for managing multiple LLM models"""
     
     def __init__(self):
         self.usage_stats = {model_id: UsageStats() for model_id in MODEL_SPECS.keys()}
@@ -883,6 +884,20 @@ class LLMRouter:
     def call_model(self, model_id: str, messages: List[Dict[str, str]], 
                    sampling_params: Optional[Dict[str, Any]] = None) -> Tuple[str, Dict[str, Any]]:
         """
+        使用统一接口，通过 ID 调用任何模型。
+
+        参数：
+
+        model_id: 来自 MODEL_SPECS 的模型标识符
+
+        messages: 包含 'role' 和 'content' 键的消息字典列表
+
+        sampling_params: 可选的字典，包含 'temperature'、'max_tokens' 和 'top_p' 三个参数
+
+        返回值：
+
+        (response_content, metadata_dict) 元组
+
         Call any model by ID with unified interface.
         
         Args:

@@ -5,212 +5,9 @@ Summary: verl: Volcano Engine Reinforcement Learning for LLM
 Home-page: https://github.com/volcengine/verl
 Author: Bytedance - Seed - MLSys
 Author-email: zhangchi.usc1992@bytedance.com, gmsheng@connect.hku.hk
-License: 
-                                         Apache License
-                                   Version 2.0, January 2004
-                                http://www.apache.org/licenses/
-        
-           TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
-        
-           1. Definitions.
-        
-              "License" shall mean the terms and conditions for use, reproduction,
-              and distribution as defined by Sections 1 through 9 of this document.
-        
-              "Licensor" shall mean the copyright owner or entity authorized by
-              the copyright owner that is granting the License.
-        
-              "Legal Entity" shall mean the union of the acting entity and all
-              other entities that control, are controlled by, or are under common
-              control with that entity. For the purposes of this definition,
-              "control" means (i) the power, direct or indirect, to cause the
-              direction or management of such entity, whether by contract or
-              otherwise, or (ii) ownership of fifty percent (50%) or more of the
-              outstanding shares, or (iii) beneficial ownership of such entity.
-        
-              "You" (or "Your") shall mean an individual or Legal Entity
-              exercising permissions granted by this License.
-        
-              "Source" form shall mean the preferred form for making modifications,
-              including but not limited to software source code, documentation
-              source, and configuration files.
-        
-              "Object" form shall mean any form resulting from mechanical
-              transformation or translation of a Source form, including but
-              not limited to compiled object code, generated documentation,
-              and conversions to other media types.
-        
-              "Work" shall mean the work of authorship, whether in Source or
-              Object form, made available under the License, as indicated by a
-              copyright notice that is included in or attached to the work
-              (an example is provided in the Appendix below).
-        
-              "Derivative Works" shall mean any work, whether in Source or Object
-              form, that is based on (or derived from) the Work and for which the
-              editorial revisions, annotations, elaborations, or other modifications
-              represent, as a whole, an original work of authorship. For the purposes
-              of this License, Derivative Works shall not include works that remain
-              separable from, or merely link (or bind by name) to the interfaces of,
-              the Work and Derivative Works thereof.
-        
-              "Contribution" shall mean any work of authorship, including
-              the original version of the Work and any modifications or additions
-              to that Work or Derivative Works thereof, that is intentionally
-              submitted to Licensor for inclusion in the Work by the copyright owner
-              or by an individual or Legal Entity authorized to submit on behalf of
-              the copyright owner. For the purposes of this definition, "submitted"
-              means any form of electronic, verbal, or written communication sent
-              to the Licensor or its representatives, including but not limited to
-              communication on electronic mailing lists, source code control systems,
-              and issue tracking systems that are managed by, or on behalf of, the
-              Licensor for the purpose of discussing and improving the Work, but
-              excluding communication that is conspicuously marked or otherwise
-              designated in writing by the copyright owner as "Not a Contribution."
-        
-              "Contributor" shall mean Licensor and any individual or Legal Entity
-              on behalf of whom a Contribution has been received by Licensor and
-              subsequently incorporated within the Work.
-        
-           2. Grant of Copyright License. Subject to the terms and conditions of
-              this License, each Contributor hereby grants to You a perpetual,
-              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-              copyright license to reproduce, prepare Derivative Works of,
-              publicly display, publicly perform, sublicense, and distribute the
-              Work and such Derivative Works in Source or Object form.
-        
-           3. Grant of Patent License. Subject to the terms and conditions of
-              this License, each Contributor hereby grants to You a perpetual,
-              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-              (except as stated in this section) patent license to make, have made,
-              use, offer to sell, sell, import, and otherwise transfer the Work,
-              where such license applies only to those patent claims licensable
-              by such Contributor that are necessarily infringed by their
-              Contribution(s) alone or by combination of their Contribution(s)
-              with the Work to which such Contribution(s) was submitted. If You
-              institute patent litigation against any entity (including a
-              cross-claim or counterclaim in a lawsuit) alleging that the Work
-              or a Contribution incorporated within the Work constitutes direct
-              or contributory patent infringement, then any patent licenses
-              granted to You under this License for that Work shall terminate
-              as of the date such litigation is filed.
-        
-           4. Redistribution. You may reproduce and distribute copies of the
-              Work or Derivative Works thereof in any medium, with or without
-              modifications, and in Source or Object form, provided that You
-              meet the following conditions:
-        
-              (a) You must give any other recipients of the Work or
-                  Derivative Works a copy of this License; and
-        
-              (b) You must cause any modified files to carry prominent notices
-                  stating that You changed the files; and
-        
-              (c) You must retain, in the Source form of any Derivative Works
-                  that You distribute, all copyright, patent, trademark, and
-                  attribution notices from the Source form of the Work,
-                  excluding those notices that do not pertain to any part of
-                  the Derivative Works; and
-        
-              (d) If the Work includes a "NOTICE" text file as part of its
-                  distribution, then any Derivative Works that You distribute must
-                  include a readable copy of the attribution notices contained
-                  within such NOTICE file, excluding those notices that do not
-                  pertain to any part of the Derivative Works, in at least one
-                  of the following places: within a NOTICE text file distributed
-                  as part of the Derivative Works; within the Source form or
-                  documentation, if provided along with the Derivative Works; or,
-                  within a display generated by the Derivative Works, if and
-                  wherever such third-party notices normally appear. The contents
-                  of the NOTICE file are for informational purposes only and
-                  do not modify the License. You may add Your own attribution
-                  notices within Derivative Works that You distribute, alongside
-                  or as an addendum to the NOTICE text from the Work, provided
-                  that such additional attribution notices cannot be construed
-                  as modifying the License.
-        
-              You may add Your own copyright statement to Your modifications and
-              may provide additional or different license terms and conditions
-              for use, reproduction, or distribution of Your modifications, or
-              for any such Derivative Works as a whole, provided Your use,
-              reproduction, and distribution of the Work otherwise complies with
-              the conditions stated in this License.
-        
-           5. Submission of Contributions. Unless You explicitly state otherwise,
-              any Contribution intentionally submitted for inclusion in the Work
-              by You to the Licensor shall be under the terms and conditions of
-              this License, without any additional terms or conditions.
-              Notwithstanding the above, nothing herein shall supersede or modify
-              the terms of any separate license agreement you may have executed
-              with Licensor regarding such Contributions.
-        
-           6. Trademarks. This License does not grant permission to use the trade
-              names, trademarks, service marks, or product names of the Licensor,
-              except as required for reasonable and customary use in describing the
-              origin of the Work and reproducing the content of the NOTICE file.
-        
-           7. Disclaimer of Warranty. Unless required by applicable law or
-              agreed to in writing, Licensor provides the Work (and each
-              Contributor provides its Contributions) on an "AS IS" BASIS,
-              WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-              implied, including, without limitation, any warranties or conditions
-              of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-              PARTICULAR PURPOSE. You are solely responsible for determining the
-              appropriateness of using or redistributing the Work and assume any
-              risks associated with Your exercise of permissions under this License.
-        
-           8. Limitation of Liability. In no event and under no legal theory,
-              whether in tort (including negligence), contract, or otherwise,
-              unless required by applicable law (such as deliberate and grossly
-              negligent acts) or agreed to in writing, shall any Contributor be
-              liable to You for damages, including any direct, indirect, special,
-              incidental, or consequential damages of any character arising as a
-              result of this License or out of the use or inability to use the
-              Work (including but not limited to damages for loss of goodwill,
-              work stoppage, computer failure or malfunction, or any and all
-              other commercial damages or losses), even if such Contributor
-              has been advised of the possibility of such damages.
-        
-           9. Accepting Warranty or Additional Liability. While redistributing
-              the Work or Derivative Works thereof, You may choose to offer,
-              and charge a fee for, acceptance of support, warranty, indemnity,
-              or other liability obligations and/or rights consistent with this
-              License. However, in accepting such obligations, You may act only
-              on Your own behalf and on Your sole responsibility, not on behalf
-              of any other Contributor, and only if You agree to indemnify,
-              defend, and hold each Contributor harmless for any liability
-              incurred by, or claims asserted against, such Contributor by reason
-              of your accepting any such warranty or additional liability.
-        
-           END OF TERMS AND CONDITIONS
-        
-           APPENDIX: How to apply the Apache License to your work.
-        
-              To apply the Apache License to your work, attach the following
-              boilerplate notice, with the fields enclosed by brackets "[]"
-              replaced with your own identifying information. (Don't include
-              the brackets!)  The text should be enclosed in the appropriate
-              comment syntax for the file format. We also recommend that a
-              file or class name and description of purpose be included on the
-              same "printed page" as the copyright notice for easier
-              identification within third-party archives.
-        
-           Copyright [yyyy] [name of copyright owner]
-        
-           Licensed under the Apache License, Version 2.0 (the "License");
-           you may not use this file except in compliance with the License.
-           You may obtain a copy of the License at
-        
-               http://www.apache.org/licenses/LICENSE-2.0
-        
-           Unless required by applicable law or agreed to in writing, software
-           distributed under the License is distributed on an "AS IS" BASIS,
-           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-           See the License for the specific language governing permissions and
-           limitations under the License.
-        
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
-License-File: LICENSE
+License-File: LICENSE.txt
 Requires-Dist: accelerate
 Requires-Dist: codetiming
 Requires-Dist: datasets
@@ -261,239 +58,395 @@ Dynamic: license-file
 Dynamic: provides-extra
 Dynamic: requires-dist
 
-# Reasoning360
+# xRouter: Training Cost-Aware LLMs Orchestration System via Reinforcement Learning
 
-<p align="center">
-  <a href="https://arxiv.org/abs/2506.14965">
-    <img alt="Paper" src="https://img.shields.io/badge/Paper-arXiv%3A2506.14965-b31b1b?style=flat&logo=arxiv">
-  </a>
-  <a href="https://huggingface.co/datasets/LLM360/guru-RL-92k">
-    <img alt="Dataset" src="https://img.shields.io/badge/Data-guru--92k-blue?logo=huggingface&logoColor=yellow">
-  </a>
-  <a href="https://huggingface.co/LLM360/guru-7B">
-    <img alt="Model" src="https://img.shields.io/badge/Model-guru--model-ffcc00?logo=huggingface&logoColor=yellow">
-  </a>
-</p>
+[![arXiv](https://img.shields.io/badge/arXiv-2510.08439-b31b1b.svg)](https://arxiv.org/abs/2510.08439)
+[![GitHub](https://img.shields.io/badge/GitHub-SalesforceAIResearch%2FxRouter-blue?logo=github)](https://github.com/SalesforceAIResearch/xRouter)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
 
+xRouter is an intelligent LLM routing system trained with reinforcement learning to dynamically select optimal models from 20+ available LLMs while optimizing for both performance and cost.
 
-This is the official repository of Reasoning360, a project dedicated to *open research on large-scale reasoning models*. The repository currently includes data processing and filtering tools, reinforcement learning (RL) training pipelines, and an evaluation suite. It's initialized from [verl](https://github.com/volcengine/verl).
+<!-- ![Router Architecture](docs/_static/router_architecture.png) -->
 
-## 🔥News
-+ Our paper to analyze and improve multi-domain RL for LLM reasoning with Guru data "[Revisiting Reinforcement Learning for LLM Reasoning from A Cross-Domain Perspective](https://arxiv.org/abs/2506.14965)" is out on arxiv.
+## 🎯 Overview
 
-+ The ready-to-train 92K Guru RL data across six domains is released under [LLM360 huggingface](https://huggingface.co/datasets/LLM360/guru_RL).
+xRouter enables intelligent, cost-aware routing across multiple LLM providers through:
 
+- **Intelligent Model Selection**: Routes queries to 20+ LLMs across OpenAI, Together AI, and other providers
+- **Cost-Performance Optimization**: Balances quality and cost through RL-trained routing policies
+- **Agentic Prompt Engineering**: Automatically optimizes system prompts for target models
+- **Multi-Turn Reasoning**: Supports complex workflows with response synthesis and selection
+- **Production-Ready API**: OpenAI-compatible endpoints for seamless integration
 
----
-## Table of Contents
-- [Installation](#installation)
-- [Data preparation](#data-preparation)
-- [RL Training](#rl-training)
-  - [(1) Download data](#1-download-data)
-  - [(2) \[Optional\] Customize chat template](#2-optional-customize-chat-template)
-  - [(3) \[Optional\] SandboxFusion Code Execution](#3-optional-sandboxfusion-code-execution)
-  - [(4) Train](#4-train)
-- [Evaluation](#evaluation)
-- [Contributing](#contributing)
-  - [Add a new dataset for training (or evaluation)](#add-a-new-dataset-for-training-or-evaluation)
-  - [Pre-commit](#pre-commit)
-  - [Pull Request](#pull-request)
+## 🏗️ Architecture
 
+### Core Components
 
----
-
-## Installation
-
-```bash
-git clone git@github.com:LLM360/Reasoning360.git
-cd Reasoning360
+```
+rl_router/
+├── verl/
+│   ├── tools/
+│   │   ├── router_tool.py              # Router and selection tool implementations
+│   │   └── utils/router_utils.py       # Model specs, routing logic, LiteLLM integration
+│   └── workers/
+│       ├── rollout/sglang_rollout/     # Modified rollout for router training
+│       └── reward_manager/async_dapo.py # Cost-aware reward shaping
+├── data_preprocess/
+│   └── router_data_preprocess.py        # Training data generation pipeline
+├── examples/sglang_multiturn/config/
+│   └── tool_config/
+│       └── router_tool_config.yaml      # 20+ model tool definitions
+├── train/                               # DAPO training scripts
+├── evaluation/                          # Evaluation and serving pipeline
+└── tests/router/                        # Router unit tests
 ```
 
+### Key Features
+
+- **🤖 20+ Model Support**: Access to GPT-5, GPT-4.1, o3/o4, DeepSeek R1, Qwen3, Kimi K2, and more
+- **💰 Cost Optimization**: RL-trained policies that minimize costs while maintaining quality
+- **🎯 Adaptive Routing**: Dynamic model selection based on query complexity and requirements
+- **⚡ High Performance**: SGLang backend with optimized inference pipeline
+- **📊 Rich Observability**: Comprehensive cost tracking and routing decision logs
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.12+
+- CUDA-compatible GPU(s) (8 GPUs recommended for training)
+- API keys for model providers: OpenAI, Together AI, and/or Google Gemini
+
+### Installation
+
+1. **Clone and Setup Environment**
+   ```bash
+   git clone https://github.com/SalesforceAIResearch/xRouter.git
+   cd xRouter
+   
+   conda create -n xrouter python=3.12
+   conda activate xrouter
+   
+   # Install core dependencies
+   pip install uv
+   uv pip install torch==2.6.0
+   uv pip install flash-attn==2.7.3 --no-build-isolation
+   uv pip install -e .[gpu,math,vllm,test]
+   
+   # Install router-specific dependencies
+   pip install litellm rich python-dotenv
+   ```
+
+2. **Configure API Keys**
+   ```bash
+   export OPENAI_API_KEY="your_openai_key"
+   export TOGETHER_API_KEY="your_together_key"
+   export GEMINI_API_KEY="your_gemini_key"  # optional
+   ```
+
+3. **Test Router Components**
+   ```bash
+   # Test model connections
+   python tests/router/test_simple_connection.py
+   
+   # Verify all 20+ models are accessible
+   python -c "from verl.tools.utils.router_utils import MODEL_SPECS; print(f'{len(MODEL_SPECS)} models available')"
+   ```
+
+## 📊 Data Preparation
+
+### 1. Download Base Dataset
 
 ```bash
-conda create -n Reasoning360 python=3.12
-conda activate Reasoning360
-conda install -c nvidia/label/cuda-12.4.0 cuda-toolkit cuda-nvcc
-pip install uv # using uv to install packages is faster than pip
-uv pip install torch==2.6.0
-uv pip install flash-attn==2.7.3 --no-build-isolation
-uv pip install -e .[gpu,math,vllm,test]
+# Download training data (from Reasoning360)
+python scripts/tools/download_guru.py
 ```
 
-Alternatively, you can refer to verl [installment guidance](https://verl.readthedocs.io/en/latest/index.html) for setup.
+### 2. Generate Router Training Data
 
+The data preprocessing pipeline creates training samples with dynamic model pools and optimized system prompts:
 
----
-## Data preparation
-The full ready-to-train 92K Guru RL data is already released under [LLM360 huggingface](https://huggingface.co/datasets/LLM360/guru_RL)!  If you would like to build (or experience) the data pipeline from scratch, we also provide detailed guidances for [data preparation](./data_preprocess/README.md) and [filtering by data difficulty levels](./model_filtering/README.md).
+```bash
+date_str=$(date +%m%d)
 
-Quick data check:
+# Process hard tasks (pass rate < 0.15)
+python data_preprocess/router_data_preprocess.py \
+    --use_fixed_sets \
+    --fixed_set_1_percentage 0.5 \
+    --fixed_set_2_percentage 0.1 \
+    --fixed_set_3_percentage 0.05 \
+    --num_repetitions 2 \
+    --premium_min 1 --premium_max 5 \
+    --budget_min 1 --budget_max 5 \
+    --standard_min 1 --standard_max 5 \
+    --specialized_min 0 --specialized_max 3 \
+    --seed 42 \
+    --max_system_prompt_length 2000 \
+    --output_dir data/train_hard_${date_str} \
+    --input_dir data/train_filter_015 \
+    --max_num_samples 400
+
+# Process medium difficulty tasks
+python data_preprocess/router_data_preprocess.py \
+    --use_fixed_sets \
+    --fixed_set_1_percentage 0.5 \
+    --fixed_set_2_percentage 0.1 \
+    --fixed_set_3_percentage 0.05 \
+    --num_repetitions 1 \
+    --output_dir data/train_medium_${date_str} \
+    --input_dir data/train_filter_1565 \
+    --max_num_samples 400
+```
+
+**Key Parameters:**
+- `--use_fixed_sets`: Enable proportional sampling with fixed model sets
+- `--fixed_set_X_percentage`: Proportion of samples using predefined model pools
+- `--num_repetitions`: Create multiple versions with different model combinations
+- `--premium/budget/standard/specialized_min/max`: Model sampling ranges per tier
+
+### 3. Combine and Filter Data
+
+```bash
+# Combine all processed datasets
+mkdir -p data/combined_train_${date_str}
+mv data/train_*_${date_str}/* data/combined_train_${date_str}/
+
+# Filter by token length
+python scripts/token_distribution_analysis.py \
+    --data_folder data/combined_train_${date_str}/ \
+    --max_tokens 12000
+```
+
+## 🏋️ Training
+
+### Overview
+
+xRouter uses DAPO (Distributional Advantage Policy Optimization) with cost-aware reward shaping to learn optimal routing policies.
+
+### Setup and Launch
+
+```bash
+# Configure Ray cluster
+export RAY_TMPDIR=/path/to/ray_tmp
+ray stop || true
+head_node_ip=$(hostname -I | awk '{print $1}')
+ray start --head --node-ip-address="$head_node_ip" --port=6595 --include-dashboard=False --block &
+
+# Launch training
+bash train/example_singlenode_router1.sh
+```
+
+**Key Training Configuration:**
+
+```bash
+# In train/example_singlenode_router1.sh
+BASE_MODEL="Qwen/Qwen2.5-7B-Instruct"
+TRAIN_DATA_DIR="data/combined_train_MMDD_filtered_12k/"
+
+# Cost-aware reward parameters
+reward_lambda=2.0        # Cost penalty coefficient
+reward_K=1.0            # Reward threshold
+cost_max=0.6            # Maximum normalized cost
+
+# Tool configuration
+tool_config_path="examples/sglang_multiturn/config/tool_config/router_tool_config.yaml"
+max_turns=3             # Maximum agentic turns
+```
+
+**Training Features:**
+- **DAPO Algorithm**: Distributional advantage estimation with cost awareness
+- **Cost Shaping**: Penalizes expensive routing decisions
+- **Multi-Turn Credit Assignment**: Proper reward attribution across turns
+- **Tool-Augmented Training**: Learns to use 20+ model tools effectively
+
+## 📈 Evaluation & Deployment
+
+### 1. Host Router Model
+
+Start the trained router model with tool calling enabled:
+
+```bash
+cd evaluation
+bash host_router.sh  # Serves on port 8000
+```
+
+### 2. Launch Router API
+
+Start the OpenAI-compatible API server:
+
+```bash
+bash serve_router.sh  # Serves on port 8800
+```
+
+### 3. Run Benchmarks
+
+```bash
+# Comprehensive testing
+python test_serve.py --test all
+
+# Specific test categories
+python test_serve.py --test math_problem
+python test_serve.py --test coding_task
+python test_serve.py --test reasoning_task
+
+# Benchmark on 17 evaluation datasets
+python benchmark_router.py \
+    --eval_data_dir data/offline_eval/ \
+    --output_dir evaluation/outputs/
+```
+
+### API Usage Example
+
 ```python
-import json
-from datasets import load_dataset
+import openai
 
-# Load dataset
-train_data = load_dataset("LLM360/guru-RL-92k", split="train", streaming=True)
-
-print(f"Columns: {train_data.column_names}")
-print(f"First item: {next(iter(train_data))}")
-```
-
----
-## RL Training
-### (1) Download data
-Download the data and prepare them into `.parquet`, the expected default format in training script. We provide a simple script to download and organize Guru data `scripts/tools/download_guru.py`, with all dataset files for training, online & offline evaluation to local directories.
-By defauly, training files will be put in `./data/train`. Online evaluation files will be put in `./data/online_eval`. Offline evaluation files will be put in `./data/offline_eval`.
-
-### (2) [Optional] Customize chat template
-Run `tools/change_tokenizer_config.py` if you want to apply 'think'-aware chat template. Now only the 'Qwen' families are supported.
-```python
-python tools/change_tokenizer_config.py -i <input_model_directory> -o <output_model_directory>
-```
-
-### (3) [Optional] SandboxFusion Code Execution
-
-SandboxFusion provides secure code execution for training and evaluation. It supports both containerized SLURM deployment and local installation.
-
-#### Quick Setup
-
-**Option 1: SLURM Container (Recommended for production)**
-```bash
-# Download container
-enroot import docker://varad0309/code_sandbox:server
-
-# Deploy with SLURM
-sbatch scripts/sandbox/run_server.sbatch
-```
-
-**Option 2: Local Installation (Development only)**
-```bash
-git clone https://github.com/bytedance/SandboxFusion.git
-cd SandboxFusion
-poetry install
-make run-online
-```
-
-#### Configuration
-
-Configure sandbox servers in your training script:
-
-```bash
-# Single server
-export SANDBOX_FUSION_SERVERS="fs-mbz-gpu-044"
-
-# Multiple servers (load balancing)
-export SANDBOX_FUSION_SERVERS="fs-mbz-gpu-044,fs-mbz-gpu-045"
-```
-
-Or programmatically:
-```python
-from verl.utils.reward_score.coder1.sandboxfusion_exec import code_exec_sandboxfusion
-
-# Single server
-success, output = code_exec_sandboxfusion(
-    code="print('Hello')", 
-    sandbox_servers="fs-mbz-gpu-044"
+# Initialize client
+client = openai.OpenAI(
+    base_url="http://localhost:8800/v1",
+    api_key="dummy"  # API key not required for local deployment
 )
 
-# Multiple servers
-success, output = code_exec_sandboxfusion(
-    code="print('Hello')", 
-    sandbox_servers=["fs-mbz-gpu-044", "fs-mbz-gpu-045"]
+# Send request
+response = client.chat.completions.create(
+    model="router-tool-rl",
+    messages=[
+        {"role": "user", "content": "Solve this complex math problem: ..."}
+    ],
+    max_tokens=1000
 )
+
+# Get response
+print(response.choices[0].message.content)
+
+# Access routing metadata
+metadata = response.router_metadata
+print(f"Model used: {metadata['model_used']}")
+print(f"Total cost: ${metadata['total_cost']:.6f}")
+print(f"Routing strategy: {metadata['routing_strategy']}")
 ```
 
-For detailed setup instructions, see [`verl/utils/reward_score/coder1/README.md`](verl/utils/reward_score/coder1/README.md).
+## 🔧 Advanced Configuration
 
+### Routing Modes
 
-### (4) Train
-We provide the multi-node training slurm script using a `math3k` subset data for ablation, not the full data. Change the `SHARED_DATA_PATH` upon your data path.
+**Agent Mode** (default)  
+The router can call multiple models, compare responses, and use the `select_response` tool for ensemble decisions:
 ```bash
-sbatch scripts/train/example_multinode_rl_qwen32b_base.sh
+--simple_mode False  # In data preprocessing
 ```
 
-If you need to train on the full data or include STEM data in Guru, host the llm-as-verifier model first before launching the training.
+**Simple Mode**  
+The router selects exactly one model per turn, minimizing latency for simpler tasks:
 ```bash
-sbatch scripts/tools/serve_llm_as_verifier.sh
+python data_preprocess/router_data_preprocess.py --simple_mode
 ```
-Then fill in the `export STEM_LLM_JUDGE_URL="<STEM_LLM_JUDGE_URL>"` by the llm-as-verifier server IP. It uses one GPU node to serve a 1.5B [general-verifier](https://huggingface.co/TIGER-Lab/general-verifier) now.
 
-(TODO: build a single-node script not using slurm)
+### Cost Tuning
 
+Adjust cost sensitivity in training:
 
----
-## Evaluation
-We provide a evaluation suite of of 17 tasks supporting multi-node inference based on [verl](https://github.com/volcengine/verl). For quick start, run
 ```bash
-sbatch scripts/offline_eval/example_multinode_eval_guru7b.sh
+# Higher λ = stronger cost penalty
+reward_lambda=2.0    # Default: balanced
+reward_lambda=5.0    # More cost-conscious
+reward_lambda=0.5    # Prioritize quality
 ```
-Please refer to `scripts/offline_eval/README.md` if you would like to know and customize evaluation details.
 
----
-## Contributing
-### Add a new dataset for training (or evaluation)
+### Model Pool Customization
 
-**Step1: Data preprocessing script**
+Edit fixed model sets in `data_preprocess/router_data_preprocess.py`:
 
-In preprocessing, we will process the data into a list of dictionaries, and then save it into a parquet file.
+```python
+FIXED_MODEL_SET_1 = [
+    "gpt-5", "gpt-5-mini", "o3", "o4-mini",
+    "gpt-oss-120b", "gpt-oss-20b"
+]
+```
 
-1. Prompt preprocessing
+## 📋 Available Models
 
-    We need to process the raw question into a prompt ready to be fed to the LLM. An example is [[1](data_preprocess/math/dapo_or1_merge_deduped.py)].
+| Tier | Models | Best For |
+|------|--------|----------|
+| **Premium** | GPT-5, GPT-4.1, o3, Qwen3-235B-Instruct, Kimi K2 | Mission-critical tasks |
+| **Standard** | GPT-5-Mini, GPT-4.1-Mini, o4-Mini, GPT-OSS-120B | Balanced performance |
+| **Budget** | GPT-5-Nano, GPT-4.1-Nano, GPT-4o-Mini, GPT-OSS-20B | High-volume tasks |
+| **Specialized** | o3, DeepSeek-R1, Qwen3-235B-Thinking, Qwen3-Coder-480B | Domain-specific |
 
-    Each data point is processed into a dict, and we need to specify the prompt within the data dict:
-    ```
-    "prompt": [{
-        "role": "user",
-        "content": prompt
-    }],
-    ```
+See `verl/tools/utils/router_utils.py` for full specifications.
 
-    Note that, when we use verl to train the model, it will turn into a prompt string with `apply_chat_template`.
+## 🧪 Testing
 
-    Note that:
-    - You will probably need to add some task-specific instruction in the `question`. E.g., for math, we concatenate the raw problem with `Please output the final answer within \\boxed{}.`, so that it's easy to extract the answer from model output.
-    - You don't need to instruct the model to "think step by step" or "wrap your thinking process in `<think>` `<\think>`". This should be taken care by verl during training with `apply_chat_template`. To enable this, we have a [script](scripts/tools/change_tokenizer_config.py) to modify the chat template of a huggingface model (currently only tested on Qwen).
-    - Please add an instruction under the README of `data_preprocess`
+Run the test suite to verify your installation:
 
-2. Reward function
-
-    We need to specify the information regarding reward calculation for the new dataset.
-
-    This typically includes three keys in the dict: `data_source`, `reward_model["ground_truth"]`, `extra_info`.
-
-    In our training, we use [`default_compute_score`](verl/utils/reward_score/__init__.py#L17), which routes the reward computing to a specific reward function implementation based on `data_source`. `ground_truth` and `extra_info` will be passed as arguments.
-
-**Step2: Reward function**
-
-Please look at [`default_compute_score`](verl/utils/reward_score/__init__.py#L17). You can write your own reward function for the task, and import it here. It's highly recommended to add a timeout module to avoid the training being stuck by a corner case of reward function ([example](verl/utils/reward_score/zebra_puzzle.py)).
-
-**Step3: Training script**
-
-Verify the inclusion of a new dataset by actually training models with it. Please refer the template script in this repo.
-
-### Pre-commit
-
-We use pre-commit to enforce code formatting. Before committing, make sure you have run the pre-commit checks.
 ```bash
-pre-commit install
-pre-commit run --all-files
+# Unit tests
+pytest tests/router/ -v
+
+# Test model API connections
+python tests/router/test_simple_connection.py
+
+# Integration tests
+cd evaluation
+python test_host.py      # Test hosted router model
+python test_serve.py     # Test full router API pipeline
 ```
 
-### Pull Request
+## 📖 Documentation
 
-Please make a pull request including the data preprocessing script, reward function, and the training script.
+For detailed documentation on specific components:
+- [Data Preprocessing Guide](data_preprocess/README.md)
+- [Evaluation & Serving Guide](evaluation/README.md)
+- [Router Implementation Details](README_ROUTER.md)
 
+## 📝 Key Innovations
 
-## Citation
-If you find the repo helpful, please cite:
-```
-@misc{cheng2025revisiting,
-  title         = {Revisiting Reinforcement Learning for LLM Reasoning from A Cross-Domain Perspective},
-  author        = {Zhoujun Cheng and Shibo Hao and Tianyang Liu and Fan Zhou and Yutao Xie and Feng Yao and Yuexin Bian and Yonghao Zhuang and Nilabjo Dey and Yuheng Zha and Yi Gu and Kun Zhou and Yuqi Wang and Yuan Li and Richard Fan and Jianshu She and Chengqian Gao and Abulhair Saparov and Haonan Li and Taylor W. Killian and Mikhail Yurochkin and Zhengzhong Liu and Eric P. Xing and Zhiting Hu},
-  journal       = {arXiv preprint arXiv:2506.14965},
-  year          = {2025},
-  doi           = {10.48550/arXiv.2506.14965},
-  url           = {https://arxiv.org/abs/2506.14965}
+### Data Processing
+- **Dynamic Model Pools**: Each training sample contains a unique set of available models
+- **Prompt Optimization**: Router learns to engineer optimal system prompts for each target model
+- **Curriculum Learning**: Three-tier fixed model sets for progressive difficulty (simple → hard tasks)
+
+### Training
+- **Cost-Aware Rewards**: Implements `reward = quality - λ × cost` with normalized cost tracking
+- **Tool Augmentation**: Learns to effectively use `call_<model_name>` and `select_response` tools
+- **Enhanced Rollout**: Extracts routing decisions and cost metrics from multi-turn conversations
+
+### Serving
+- **LiteLLM Integration**: Unified interface supporting 20+ models across multiple providers
+- **Context Tracking**: Maintains multi-turn conversation state and routing history
+- **Rich Observability**: Comprehensive logs for cost, latency, and routing decisions
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## 📄 License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE.txt) file for details.
+
+## 📚 Citation
+
+If you find xRouter useful for your research or applications, please cite our paper:
+
+```bibtex
+@article{qian2025xrouter,
+  title={xRouter: Training Cost-Aware LLMs Orchestration System via Reinforcement Learning},
+  author={Qian, Cheng and Liu, Zuxin and Kokane, Shirley and Prabhakar, Akshara and Qiu, Jielin and Chen, Haolin and Liu, Zhiwei and Ji, Heng and Yao, Weiran and Heinecke, Shelby and Savarese, Silvio and Xiong, Caiming and Wang, Huan},
+  journal={arXiv preprint arXiv:2510.08439},
+  year={2025}
 }
 ```
+
+## 🙏 Acknowledgements
+
+This project builds upon exceptional work from the open-source community:
+
+- **[Reasoning360](https://github.com/LLM360/Reasoning360)**: Foundational RL training framework and base infrastructure
+- **[VERL](https://github.com/volcengine/verl)**: Robust reinforcement learning infrastructure for distributed LLM training
+- **[SGLang](https://github.com/sgl-project/sglang)**: High-performance LLM serving backend with efficient inference
+- **[LiteLLM](https://github.com/BerriAI/litellm)**: Unified API interface supporting 20+ LLM providers
+
+We are grateful to the maintainers and contributors of these projects for their invaluable contributions to the AI/ML ecosystem.
+
+## 📮 Contact
+
+For questions, issues, or collaboration opportunities, please [open an issue on GitHub](https://github.com/SalesforceAIResearch/xRouter/issues).
