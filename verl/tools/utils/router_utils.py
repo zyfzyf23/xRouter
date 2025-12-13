@@ -161,7 +161,7 @@ MODEL_SPECS = {
     "qwen": ModelSpec(
         name="qwen3-max",
         api_alias="qwen3-max", 
-        provider="dashscope",  
+        provider="DASHSCOPE",  
         input_price_per_million=3.2,
         output_price_per_million=12.8,
         context_window=256000,
