@@ -70,14 +70,23 @@ class LocalModelManager:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
         # 加载模型
+        #self.model = AutoModelForCausalLM.from_pretrained(
+        #    self.model_path,
+        #   trust_remote_code=True,
+        #    torch_dtype=torch.float16,
+        #    quantization_config=quantization_config,
+        #    device_map="auto"
+        #)
+
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_path,
             trust_remote_code=True,
             torch_dtype=torch.float16,
             quantization_config=quantization_config,
-            device_map="auto"
+            device_map="cuda:0",     # 【强制指定 GPU】
+            low_cpu_mem_usage=True   # 【关键参数】加载时大幅降低 CPU 内存峰值
         )
-
+        
         print(f"Model {self.model_id} loaded successfully")
 
     def generate(self, prompt: str, max_tokens: int = 2048, temperature: float = 0.0, add_instruction: bool = True) -> Tuple[str, Dict]:
@@ -308,23 +317,33 @@ class OfflineCacheGenerator:
             results["weak_token"] = "0"
             results["weak_correct"] = False
 
-        # 调用强模型
-        try:
-            print(f"Processing question {item.get('id', '')} with {self.strong_model}...")
-            strong_response, strong_metadata = self.call_model_with_fallback(self.strong_model, question)
-            input_tokens = strong_metadata.get("input_tokens", 0)
-            output_tokens = strong_metadata.get("output_tokens", 0)
-            total_tokens = input_tokens + output_tokens
-            results["strong_ans"] = strong_response
-            results["strong_token"] = str(total_tokens) 
-            results["strong_cost"] = strong_metadata.get("cost", 0.0)
-            results["strong_correct"] = self.verify_answer(strong_response, ground_truth)
-        except Exception as e:
-            print(f"强模型 {self.strong_model} 处理问题 {item.get('id', '')} 时出错: {e}")
-            results["strong_ans"] = f"ERROR: {str(e)}"
-            results["strong_token"] = "0"
-            results["strong_correct"] = False
-
+        # 调用强模型 (添加重试逻辑)
+        max_retries = 3  # 最多重试 3 次
+        for attempt in range(max_retries):
+            try:
+                print(f"Processing question {item.get('id', '')} with {self.strong_model} (Attempt {attempt+1})...")
+                strong_response, strong_metadata = self.call_model_with_fallback(self.strong_model, question)
+                
+                # 如果成功，正常处理并跳出重试循环
+                input_tokens = strong_metadata.get("input_tokens", 0)
+                output_tokens = strong_metadata.get("output_tokens", 0)
+                total_tokens = input_tokens + output_tokens
+                results["strong_ans"] = strong_response
+                results["strong_token"] = str(total_tokens) 
+                results["strong_cost"] = strong_metadata.get("cost", 0.0)
+                results["strong_correct"] = self.verify_answer(strong_response, ground_truth)
+                break  # 成功了，跳出循环
+                
+            except Exception as e:
+                print(f"强模型调用失败 (尝试 {attempt+1}/{max_retries}): {e}")
+                if attempt < max_retries - 1:
+                    time.sleep(5)  # 失败后歇 5 秒再试
+                else:
+                    # 最后一次也没成功，记录错误
+                    print(f"强模型 {self.strong_model} 处理问题 {item.get('id', '')} 时出错: {e}")
+                    results["strong_ans"] = f"ERROR: {str(e)}"
+                    results["strong_token"] = "0"
+                    results["strong_correct"] = False
         return results
 
     def get_processed_ids(self, output_path: str) -> set:
@@ -402,15 +421,23 @@ class OfflineCacheGenerator:
 
                     processed_count += 1
                     
-                    # 显存清理
-                    if processed_count % 10 == 0 and torch.cuda.is_available():
-                        torch.cuda.empty_cache()
+                    # 显存清理 & 内存清理
+                    if processed_count % 10 == 0:
+                        # 主动删除当前循环的大变量引用
+                        del item
+                        del result
+                        # 1. 强制回收 Python 对象内存 (RAM)
+                        gc.collect() 
+                        
+                        # 2. 清理 PyTorch 显存缓存 (VRAM)
+                        if torch.cuda.is_available():
+                            torch.cuda.empty_cache()
 
         print(f"Done. Processed {processed_count} new items.")
 
 def main():
     parser = argparse.ArgumentParser(description="生成离线缓存")
-    parser.add_argument("--input_path", type=str, default="/home/zyf/xRouter/data/raw_prompts_simple.jsonl", help="输入数据路径")
+    parser.add_argument("--input_path", type=str, default="/home/zyf/xRouter/data/raw_prompts.jsonl", help="输入数据路径")
     parser.add_argument("--output_path", type=str, default="/home/zyf/xRouter/data/offline_cache_simple.jsonl", help="输出缓存路径")
     # parser.add_argument("--start_index", type=int, default=0, help="起始索引（用于断点续传）")
     parser.add_argument("--weak_model", type=str, default="qwen2.5-1.5b-local", help="弱模型ID")
