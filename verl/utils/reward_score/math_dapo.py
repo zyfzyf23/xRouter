@@ -120,7 +120,16 @@ REMOVED_EXPRESSIONS = [
     '"',
     "\\dots",
 ]
-
+"""
+def symbolic_equal(pred: str, gt: str) -> bool:
+    try:
+        n = Symbol('n')
+        expr1 = sympify(pred, locals={'n': n})
+        expr2 = sympify(gt, locals={'n': n})
+        return simplify(expr1 - expr2) == 0
+    except Exception:
+        return False
+"""
 
 def normalize_final_answer(final_answer: str) -> str:
     """Normalize a final answer to a quantitative reasoning question.
@@ -160,6 +169,19 @@ def normalize_final_answer(final_answer: str) -> str:
     if final_answer.replace(",", "").isdigit():
         final_answer = final_answer.replace(",", "")
 
+    """
+
+    # add
+    # Convert LaTeX \frac to infix division
+    final_answer = re.sub(r'\\[d]?frac\{([^}]*)\}\{([^}]*)\}', r'(\1)/(\2)', final_answer)# Remove any remaining LaTeX math mode
+    final_answer = final_answer.replace("\\pi", "pi")
+    final_answer = final_answer.replace("\\alpha", "alpha")
+    final_answer = final_answer.replace("\\beta", "beta")
+    final_answer = final_answer.replace("\\theta", "theta")
+    final_answer = final_answer.replace("\\lambda", "lambda")
+    final_answer = final_answer.replace(" ", "")
+
+    """
     return final_answer.strip()
 
 
@@ -185,8 +207,19 @@ def is_correct_minerva(solution_str: str, gt: str, gt_need_extract: bool = False
         gt = normalize_final_answer(remove_boxed(last_boxed_only_string(gt)))
     else:
         gt = normalize_final_answer(gt)
+    return  (pred == gt), pred
+    
 
-    return (pred == gt), pred
+    """
+    if pred == gt:
+        return True, pred
+    
+    # 尝试符号等价
+    if symbolic_equal(pred, gt):
+        return True, pred
+    
+    return False, pred
+    """
 
 
 def is_correct_strict_box(pred: str, gt: str, pause_tokens_index: Optional[list[int]] = None) -> tuple[int, Optional[str]]:

@@ -7,9 +7,13 @@
 import os
 import json
 import argparse
-from typing import Dict, List, Optional
+import gc  # 引入垃圾回收模块
+import random
+from typing import Dict, List, Optional, Generator
 import pandas as pd
 from tqdm import tqdm
+import pyarrow.parquet as pq
+import pyarrow as pa
 
 # XRouter 系统提示词（从 router_data_preprocess.py 复制）
 SYSTEM_PROMPT = """You are a helpful assistant — an intelligent LLM router and prompt engineer. Your job is to:
@@ -226,109 +230,205 @@ def process_code_sample(sample: pd.Series, idx: int) -> Optional[Dict]:
 
 def process_guru_dataset(
     output_file: str,
-    max_math_samples: int = 1000,
-    max_code_samples: int = 1000,
-    train_dir: str = "data/train"
+    max_math_samples: int = 2500,
+    train_dir: str = "data/train",
+    seed: int = 42
 ):
-    """
-    处理 Guru 数据集（从本地 parquet 文件）
-
-    Args:
-        output_file: 输出文件路径
-        max_math_samples: 最大数学题样本数
-        max_code_samples: 最大代码题样本数
-        train_dir: 训练数据目录
-    """
-    print("Processing Guru dataset from local parquet files...")
-
-    math_samples = []
-    code_samples = []
-
-    # 处理数学数据
-    math_file = os.path.join(train_dir, "math__combined_54.4k.parquet")
-    if os.path.exists(math_file):
-        print(f"Loading math data from {math_file}...")
-        df_math = pd.read_parquet(math_file)
-
-        print(f"Found {len(df_math)} math samples")
-
-        # 随机采样
-        if len(df_math) > max_math_samples:
-            df_math = df_math.sample(n=max_math_samples, random_state=42)
-
-        print(f"Processing {len(df_math)} math samples...")
-        for idx, (_, sample) in enumerate(tqdm(df_math.iterrows(), total=len(df_math))):
-            processed = process_math_sample(sample, idx)
-            math_samples.append(processed)
-
-    # 处理代码数据
-    code_files = [
-        "codegen__leetcode2k_1.3k.parquet",
-        "codegen__livecodebench_440.parquet",
-        "codegen__primeintellect_7.5k.parquet",
-        "codegen__taco_8.8k.parquet"
-    ]
-
-    total_code_samples = 0
-    for code_file in code_files:
-        file_path = os.path.join(train_dir, code_file)
-        if os.path.exists(file_path):
-            print(f"\nLoading code data from {file_path}...")
-            df_code = pd.read_parquet(file_path)
-
-            # 计算还可以采集多少样本
-            remaining_samples = max_code_samples - total_code_samples
-            if remaining_samples <= 0:
-                break
-
-            # 如果样本数超过所需，随机采样
-            if len(df_code) > remaining_samples:
-                df_code = df_code.sample(n=remaining_samples, random_state=42)
-
-            print(f"Processing {len(df_code)} code samples from {code_file}...")
-            for idx, (_, sample) in enumerate(tqdm(df_code.iterrows(), total=len(df_code))):
-                processed = process_code_sample(sample, idx + total_code_samples)
-                if processed is not None:
-                    code_samples.append(processed)
-
-            total_code_samples += len(df_code)
-
-    # 合并所有样本
-    all_samples = math_samples + code_samples
-
-    print(f"\nProcessing complete!")
-    print(f"Math samples: {len(math_samples)}")
-    print(f"Code samples: {len(code_samples)}")
-    print(f"Total samples: {len(all_samples)}")
-
-    # 创建输出目录
+    print("Processing Guru dataset (Aggressive Memory Saving Mode)...")
+    
+    # 【优化 1】配置 PyArrow 内存分配器
+    # 尝试让 PyArrow 只要有空闲内存就立即归还给 OS
+    if hasattr(pa, 'jemalloc_set_decay_ms'):
+        pa.jemalloc_set_decay_ms(0) 
+    
+    # 设置随机种子
+    random.seed(seed)
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
-    # 保存为 JSONL 格式
-    print(f"Saving to {output_file}...")
-    with open(output_file, 'w', encoding='utf-8') as f:
-        for sample in all_samples:
-            f.write(json.dumps(sample, ensure_ascii=False, default=str) + '\n')
+    total_count = 0
+    math_count = 0
+    code_count = 0
 
-    print("Done!")
+    # ======================
+    # 处理数学数据
+    # ======================
+    math_file = os.path.join(train_dir, "math__combined_54.4k.parquet")
+    if os.path.exists(math_file):
+        print(f"\n[1/2] Processing math data: {math_file}")
+        
+        parquet_file = pq.ParquetFile(math_file)
+        total_rows = parquet_file.metadata.num_rows
+        
+        if total_rows > max_math_samples:
+            target_indices = set(random.sample(range(total_rows), max_math_samples))
+        else:
+            target_indices = set(range(total_rows))
 
-    # 打印一些示例
-    print("\n=== Example Math Sample ===")
-    if math_samples:
-        sample = math_samples[0]
-        print(f"Domain: {sample['domain']}")
-        print(f"Source: {sample['source_id']}")
-        print(f"Question: {sample['original_question'][:200]}...")
-        print(f"Messages: {json.dumps(sample['xrouter_messages'], indent=2)[:500]}...")
+        with open(output_file, 'w', encoding='utf-8') as f_out:
+            pbar = tqdm(total=len(target_indices), desc="Math samples")
+            current_global_idx = 0
+            
+            # 【优化 2】减小 Batch Size，降低瞬时压力
+            batch_size = 1000 
+            
+            for batch in parquet_file.iter_batches(batch_size=batch_size):
+                batch_rows = batch.num_rows
+                
+                # 筛选索引
+                batch_indices_to_keep = []
+                for local_i in range(batch_rows):
+                    if (current_global_idx + local_i) in target_indices:
+                        batch_indices_to_keep.append(local_i)
+                
+                if batch_indices_to_keep:
+                    # 转换为 Pandas
+                    relevant_batch = batch.take(batch_indices_to_keep)
+                    df_batch = relevant_batch.to_pandas()
+                    
+                    # 转换为 dict 列表再迭代，通常比 iterrows 更省内存
+                    records = df_batch.to_dict('records')
+                    
+                    for row_dict in records:
+                        # 临时构造 Series 以适配你的旧函数接口
+                        # (虽然有些浪费，但为了不改动 process_math_sample 逻辑)
+                        sample_series = pd.Series(row_dict)
+                        processed = process_math_sample(sample_series, total_count)
+                        f_out.write(json.dumps(processed, ensure_ascii=False, default=str) + '\n')
+                        
+                        math_count += 1
+                        total_count += 1
+                        pbar.update(1)
+                    
+                    # 显式删除临时变量
+                    del relevant_batch, df_batch, records
+                
+                current_global_idx += batch_rows
+                
+                # 显式删除 PyArrow batch 对象
+                del batch
+                
+                # 【优化 3】强制每轮循环都进行垃圾回收
+                # 虽然会稍微变慢，但能保命
+                gc.collect()
 
-    print("\n=== Example Code Sample ===")
-    if code_samples:
-        sample = code_samples[0]
-        print(f"Domain: {sample['domain']}")
-        print(f"Source: {sample['source_id']}")
-        print(f"Question: {sample['original_question'][:200]}...")
-        print(f"Messages: {json.dumps(sample['xrouter_messages'], indent=2)[:500]}...")
+            pbar.close()
+        gc.collect() # 大循环结束后再次回收
+    else:
+        print(f"⚠ Math file not found: {math_file}")
 
+    # ======================
+    # 处理代码数据
+    # ======================
+    code_datasets = [
+        ("codegen__leetcode2k_1.3k.parquet", 1.0, "LeetCode"),
+        ("codegen__livecodebench_440.parquet", 1.0, "LiveCodeBench"),
+        ("codegen__primeintellect_7.5k.parquet", 0.1, "PrimeIntellect"),
+        ("codegen__taco_8.8k.parquet", 0.1, "TACO")
+    ]
+
+    expected_total = 0
+    actual_collected = 0
+    # code_count 已经在上面初始化过了
+
+    write_mode = 'a' if os.path.exists(output_file) else 'w'
+    
+    with open(output_file, write_mode, encoding='utf-8') as f_out:
+        for code_file, sample_ratio, name in code_datasets:
+            file_path = os.path.join(train_dir, code_file)
+            if not os.path.exists(file_path):
+                continue
+
+            print(f"\n[2/2] Processing: {name}")
+
+            try:
+                parquet_file = pq.ParquetFile(file_path)
+                total_rows = parquet_file.metadata.num_rows
+                
+                target_count = int(total_rows * sample_ratio) if sample_ratio < 1.0 else total_rows
+                expected_total += target_count
+                
+                target_indices = set()
+                if sample_ratio < 1.0:
+                    target_indices = set(random.sample(range(total_rows), target_count))
+                
+                current_file_collected = 0
+                current_global_idx = 0
+                
+                pbar = tqdm(total=target_count, desc=f"{name}")
+                
+                # 【优化 2】减小 Batch Size
+                batch_size = 1000
+
+                for batch in parquet_file.iter_batches(batch_size=batch_size):
+                    batch_rows = batch.num_rows
+                    
+                    if sample_ratio >= 1.0:
+                        relevant_batch = batch
+                    else:
+                        local_indices_to_keep = []
+                        for local_i in range(batch_rows):
+                            if (current_global_idx + local_i) in target_indices:
+                                local_indices_to_keep.append(local_i)
+                        
+                        if not local_indices_to_keep:
+                            current_global_idx += batch_rows
+                            del batch
+                            gc.collect() # 即使跳过也要回收
+                            continue
+                        
+                        relevant_batch = batch.take(local_indices_to_keep)
+
+                    df_batch = relevant_batch.to_pandas()
+                    records = df_batch.to_dict('records') # 转为字典处理
+                    
+                    for row_dict in records:
+                        sample_series = pd.Series(row_dict)
+                        processed = process_code_sample(sample_series, total_count)
+                        
+                        if processed is not None:
+                            f_out.write(json.dumps(processed, ensure_ascii=False, default=str) + '\n')
+                            current_file_collected += 1
+                            code_count += 1
+                            total_count += 1
+                            pbar.update(1)
+                            
+                            if sample_ratio < 1.0 and current_file_collected >= target_count:
+                                break
+                    
+                    current_global_idx += batch_rows
+                    
+                    # 清理内存
+                    del batch, relevant_batch, df_batch, records
+                    
+                    # 【优化 3】强制回收
+                    gc.collect()
+                    
+                    if sample_ratio < 1.0 and current_file_collected >= target_count:
+                        break
+
+                pbar.close()
+                actual_collected += current_file_collected
+                gc.collect()
+
+            except Exception as e:
+                print(f"❌ Error processing {code_file}: {e}")
+                # 打印 traceback 方便调试
+                import traceback
+                traceback.print_exc()
+
+    # ======================
+    # 总结
+    # ======================
+    print(f"\n{'='*60}")
+    print("Processing Summary")
+    print(f"{'='*60}")
+    print(f"Math samples:     {math_count}")
+    print(f"Code samples:     {code_count}")
+    print(f"Total samples:    {total_count}")
+    print(f"Expected code:    {expected_total}")
+    print(f"Actual code:      {actual_collected}")
+    print(f"Output file:      {output_file}")
+    print(f"{'='*60}")
 
 def main():
     parser = argparse.ArgumentParser(description='Process Guru dataset for XRouter training')
@@ -340,19 +440,20 @@ def main():
     parser.add_argument(
         '--max-math-samples',
         type=int,
-        default=1000,
+        default=2500,
         help='Maximum number of math samples to collect'
-    )
-    parser.add_argument(
-        '--max-code-samples',
-        type=int,
-        default=1000,
-        help='Maximum number of code samples to collect'
+
     )
     parser.add_argument(
         '--train-dir',
         default='data/train',
         help='Directory containing the parquet files'
+    )
+    parser.add_argument(
+        '--seed',
+        type=int,
+        default=42,
+        help='Random seed for reproducible sampling'
     )
 
     args = parser.parse_args()
@@ -360,8 +461,8 @@ def main():
     process_guru_dataset(
         output_file=args.output_file,
         max_math_samples=args.max_math_samples,
-        max_code_samples=args.max_code_samples,
-        train_dir=args.train_dir
+        train_dir=args.train_dir,
+        seed=args.seed
     )
 
 

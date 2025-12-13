@@ -1,5 +1,7 @@
 # CLAUDE.md - XRouter Lightweight Refactoring Guide
 请使用简体中文回答问题。
+在给出代码时，考虑是否急剧占用了大量资源，比如不可以突然占用大量内存。
+项目文件scripts下的代码是重构代码，并不是xRouter 的原生代码，如果任务要求复现xRouter的代码，尽可能忽略scripts文件夹下的代码。
 
 **🚨 注意：当前项目正在进行特定方向的重构。请优先遵循以下“当前开发任务”中的指示，忽略下方关于 Ray 集群、vLLM 和分布式训练的旧指令。**
 
