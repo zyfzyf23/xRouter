@@ -103,33 +103,6 @@ MODEL_SPECS = {
         - LMSYS Arena Elo: 1481"""
     ),
 
-    "gpt-5-mini": ModelSpec(
-        name="GPT-5 Mini",
-        api_alias="gpt-5-mini", 
-        provider="openai",
-        input_price_per_million=0.25,
-        output_price_per_million=2.00,
-        context_window=400000,
-        max_output_tokens=128000,
-        capabilities=["reasoning", "coding", "math", "general", "multimodal"],
-        quality_tier="standard",
-        description="""Smaller, faster, and more cost-effective version of GPT-5 with strong performance.
-
-        Capabilities: Reasoning, coding, math, general tasks, multimodal (text+image input)
-        Quality: Mid-tier with excellent performance-to-cost ratio
-        Cost: $0.25/M input tokens, $2.00/M output tokens
-        Context: 400K tokens
-        Max Output: 128K tokens
-
-        Best for: High-volume applications, cost-sensitive workflows, general-purpose tasks where full GPT-5 capability isn't required, and applications needing good performance at lower cost.
-
-        Benchmark Performance:
-        - MMLU-Pro: 82.8%
-        - GPQA Diamond: 82.3%
-        - AIME 2025: 91.1%
-        - LMSYS Arena Elo: 1375"""
-    ),
-
     # Local Models
     "qwen2.5-1.5b-local": ModelSpec(
         name="Qwen2.5-1.5B-Instruct",
@@ -156,6 +129,33 @@ MODEL_SPECS = {
         - 支持中英文双语
         - 优秀的数学推理能力
         - 适合在RTX 4060等消费级显卡运行"""
+    ),
+
+    "qwen2.5-1.5b-instruct": ModelSpec(
+        name="qwen2.5-1.5b-instruct",
+        api_alias="qwen2.5-1.5b-instruct",
+        provider="DASHSCOPE",
+        input_price_per_million=0.0,
+        output_price_per_million=0.0,
+        context_window=32768,
+        max_output_tokens=8096,
+        capabilities=["math", "reasoning", "coding", "general"],
+        quality_tier="budget",
+        description="""A compact, high-efficiency variant of Qwen2.5 with strong reasoning and coding capabilities.
+
+        Capabilities: Reasoning, coding, math, general tasks, structured output (JSON), function calling, instruction following
+        Quality: Mid-tier with excellent performance-to-cost ratio
+        Cost: $0.006/M input tokens, $0.006/M output tokens
+        Context: 32K tokens
+        Max Output: 8K tokens
+
+        Best for: Cost-sensitive applications, lightweight inference workloads, API-driven workflows, and scenarios requiring reliable performance at minimal cost.
+
+        Benchmark Performance:
+        - MMLU-Pro: 74.2%
+        - GPQA Diamond: 72.1%
+        - AIME 2025: 85.3%
+        - LMSYS Arena Elo: 1280"""
     ),
 
     "qwen": ModelSpec(
